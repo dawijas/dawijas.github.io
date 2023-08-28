@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Panel Admina</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('../tło3.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        .container {
+            text-align: center;
+            margin-top: 10%;
+        }
+
+        h1 {
+            font-size: 40px;
+            color: #ffffff;
+        }
+
+        .task-input-container {
+            margin-bottom: 20px;
+        }
+
+        .task-input-container input[type="text"] {
+            width: 300px;
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 4px;
+            border: none;
+        }
+
+        .task-input-container input[type="submit"] {
+            background-color: #00a862;
+            color: #fff;
+            border: none;
+            padding: 8px 16px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .task-input-container input[type="submit"]:hover {
+            background-color: #007a4d;
+        }
+
+        .categories-container {
+            display: flex;
+            justify-content: space-between;
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+
+        .category {
+            width: 200px;
+            background-color: #0000007a;
+            border-radius: 5px;
+            margin-right: 20px;
+            padding: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .category-title {
+            font-size: 20px;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .notes-container {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            width: 150px;
+        }
+
+        .note-item {
+            width: 120%;
+            background-color: #0000007a;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            padding: 10px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+        }
+
+        .note-item p {
+            font-size: 14px;
+            color: #555555;
+            margin-bottom: 25px;
+        }
+
+        .note-item button {
+            background-color: #00a862;
+            color: #fff;
+            border: none;
+            padding: 4px 8px;
+            font-size: 12px;
+            border-radius: 3px;
+            cursor: pointer;
+            margin-top: 5px;
+            position: absolute;
+            right: 10px;
+            bottom: 10px;
+        }
+
+        .note-item button:hover {
+            background-color: #007a4d;
+        }
+
+        .footer {
+            background-color: #f2f2f200;
+            padding: 50px;
+            text-align: center;
+        }
+
+        .footer a {
+            color: #cacaca;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        
+    </style>
+    </head>
+<body>
+    <div class="container">
+        <h1>Lista twoich zadań!</h> with cutoff at 2021-09  </h1>
+        <div class="task-input-container">
+            <input type="text" id="taskInput" placeholder="Dodaj nowe zadanie...">
+            <input type="submit" value="Dodaj" onclick="addTask()">
+        </div>
+        <div class="categories-container">
+            <div class="category">
+                <h2 class="category-title">Notatki</h2>
+                <div class="notes-container" id="notesContainer">
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="footer">
+        <a href="#">O nas</a>
+        <a href="#">Kontakt</a>
+        <a href="#">Polityka prywatności</a>
+    </div>
+    
+    <script>
+        function getCookie(name) {
+            var cookieName = name + "=";
+            var decodedCookie = decodeURIComponent(document.cookie);
+            var cookieArray = decodedCookie.split(';');
+            for (var i = 0; i < cookieArray.length; i++) {
+                var cookie = cookieArray[i];
+                while (cookie.charAt(0) == ' ') {
+                    cookie = cookie.substring(1);
+                }
+                if (cookie.indexOf(cookieName) == 0) {
+                    return cookie.substring(cookieName.length, cookie.length);
+                }
+            }
+            return "";
+        }
+
+        // Funkcja zapisująca wartość do plików cookies
+        function setCookie(name, value, days) {
+            var expires = "";
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+                expires = "; expires=" + date.toUTCString();
+            }
+            document.cookie = name + "=" + encodeURIComponent(value) + expires + "; path=/";
+        }
+
+        // Funkcja dodająca notatkę
+        function addTask() {
+            var taskInput = document.getElementById("taskInput");
+            var taskValue = taskInput.value;
+
+            if (taskValue !== "") {
+                var noteItem = document.createElement("div");
+                noteItem.classList.add("note-item");
+
+                var noteText = document.createElement("p");
+                noteText.textContent = taskValue;
+
+                var deleteButton = document.createElement("button");
+                deleteButton.textContent = "Usuń";
+                deleteButton.onclick = function() {
+                    noteItem.remove();
+                    saveNotesToCookies(); // Zapisz notatki po usunięciu
+                }
+
+                noteItem.appendChild(noteText);
+                noteItem.appendChild(deleteButton);
+
+                var notesContainer = document.getElementById("notesContainer");
+                notesContainer.appendChild(noteItem);
+
+                taskInput.value = "";
+
+                saveNotesToCookies(); // Zapisz notatki po dodaniu
+            }
+        }
+
+        // Funkcja zapisująca notatki do plików cookies
+        function saveNotesToCookies() {
+            var notesContainer = document.getElementById("notesContainer");
+            var noteItems = notesContainer.getElementsByClassName("note-item");
+            var notesArray = [];
+
+            for (var i = 0; i < noteItems.length; i++) {
+                var noteText = noteItems[i].getElementsByTagName("p")[0].textContent;
+                notesArray.push(noteText);
+            }
+
+            var notesString = JSON.stringify(notesArray);
+            setCookie("notes", notesString, 7); // Zapisz notatki na 7 dni
+        }
+
+        // Funkcja wczytująca notatki z plików cookies
+        function loadNotesFromCookies() {
+            var notesString = getCookie("notes");
+            if (notesString !== "") {
+                var notesArray = JSON.parse(notesString);
+
+                var notesContainer = document.getElementById("notesContainer");
+
+                for (var i = 0; i < notesArray.length; i++) {
+                    var noteItem = document.createElement("div");
+                    noteItem.classList.add("note-item");
+
+                    var noteText = document.createElement("p");
+                    noteText.textContent = notesArray[i];
+
+                    var deleteButton = document.createElement("button");
+                    deleteButton.textContent = "Usuń";
+                    deleteButton.onclick = function() {
+                        noteItem.remove();
+                        saveNotesToCookies(); // Zapisz notatki po usunięciu
+                    }
+
+                    noteItem.appendChild(noteText);
+                    noteItem.appendChild(deleteButton);
+
+                    notesContainer.appendChild(noteItem);
+                }
+            }
+        }
+
+        // Wywołaj funkcję wczytującą notatki po załadowaniu strony
+        window.onload = loadNotesFromCookies;
+    </script>
+    </body>
+    </html>

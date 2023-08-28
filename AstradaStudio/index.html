@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>AstradaStudio</title>
+  <link rel="stylesheet" type="text/css" href="css/style.css">
+  <style>
+    body {
+      background-color: black;
+      color: white;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+    
+    header {
+      background-color: red;
+      padding: 20px;
+    }
+    
+    nav {
+      display: flex;
+      justify-content: center;
+    }
+    
+    nav ul {
+      list-style-type: none;
+      margin: 0;
+      padding: 0;
+    }
+    
+    nav ul li {
+      display: inline;
+      margin-right: 20px;
+    }
+    
+    nav ul li a {
+      color: white;
+      text-decoration: none;
+      font-size: 18px;
+    }
+    
+    #trailer {
+      background-color: white;
+      padding: 20px;
+    }
+    
+    .tile {
+      display: inline-block;
+      width: 300px;
+      background-color: black;
+      color: white;
+      padding: 20px;
+      margin: 10px;
+    }
+    
+    .tile h2 {
+      color: red;
+      font-size: 24px;
+    }
+    
+    .game-image {
+      width: 100%;
+      height: auto;
+      margin-bottom: 10px;
+    }
+    
+    .game-name {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+    
+    .game-description {
+      font-size: 14px;
+      margin-bottom: 10px;
+    }
+    
+    .button-more-games {
+      background-color: red;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    
+    .button-more-games:hover {
+      background-color: #990000;
+    }
+    
+    #game-section {
+      display: flex;
+      justify-content: center;
+    }
+    
+    #game-section .tile {
+      margin-top: 50px;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <nav>
+      <ul>
+        <li><a href="#">Strona główna</a></li>
+        <li><a href="#">Gry</a></li>
+        <li><a href="#">Nowości</a></li>
+        <li><a href="#">Kontakt</a></li>
+      </ul>
+    </nav>
+  </header>
+  
+  <div id="trailer">
+    <!-- Miejsce na video (trailer) -->
+  </div>
+  
+  <div class="tile">
+    <h2>Nowości</h2>
+    <!-- Kafelki z nowościami -->
+  </div>
+  
+  <div class="tile">
+    <h2>Nadchodzące zmiany</h2>
+    <!-- Kafelki z nadchodzącymi zmianami -->
+  </div>
+  
+  <div class="tile">
+    <h2>Informacje</h2>
+    <!-- Kafelki z informacjami -->
+  </div>
+  
+  <div id="game-section">
+    <div class="tile">
+      <img src="img/polish_fields.png" class="game-image">
+      <h3 class="game-name">Polish Fields</h3>
+      <p class="game-description">Opis gry Polish Fields</p>
+    </div>
+    
+    <div class="tile">
+      <img src="img/rail_trails.png" class="game-image">
+      <h3 class="game-name">Rail Trails</h3>
+      <p class="game-description">Opis gry Rail Trails</p>
+    </div>
+  </div>
+  
+  <button class="button-more-games">Więcej gier</button>
+  
+  <script src="js/script.js"></script>
+</body>
+</html>
