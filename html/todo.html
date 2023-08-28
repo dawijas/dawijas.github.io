@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Panel Admina</title>
+    <title>TODO</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -134,9 +134,103 @@
             margin: 0 10px;
         }
         
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: rgba(241, 241, 241, 0); 
+            padding: 10px;
+        }
+
+        .navbar-left {
+            display: flex;
+            align-items: center;
+        }
+
+        .navbar-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .dropdown {
+            position: relative;
+            margin-right: 10px;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #f9f9f9;
+            min-width: 160px;
+            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+            background-color: #f1f1f1;
+            transition: background-color 0.3s ease;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .navbar-btn {
+            background-color: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 14px 16px;
+            font-size: 16px;
+            font-family: inherit;
+            margin-right: 10px;
+        }
+
+        .navbar-btn:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .loginbtn {
+            background-color: transparent;
+            border: none;
+            color: white;
+            cursor: pointer;
+            padding: 14px 16px;
+            font-size: 16px;
+            font-family: inherit;
+        }
+
+        .loginbtn:hover {
+            background-color: rgba(255, 255, 255, 0.1); 
+        }
     </style>
     </head>
 <body>
+    <div class="navbar">
+        <div class="navbar-left">
+            <div class="dropdown">
+                <button class="dropbtn navbar-btn">Opcje</button>
+                <div class="dropdown-content">
+                    <a href="./html/todo.html" class="navbar-btn">Todo</a>
+                    <a href="./html/notatki.html" class="navbar-btn">Notatki</a>
+                    <a href="#" class="navbar-btn">Radio</a>
+                </div>
+            </div>
+            <a href="../index.html" class="navbar-btn">Home</a>
+            <button class="navbar-btn">Polish Fields</button>
+        </div>
+        <div class="navbar-right">
+            <button  class="loginbtn">Zaloguj</button>
+        </div>
+    </div>
     <div class="container">
         <h1>Lista twoich zadań!</h1>
 
