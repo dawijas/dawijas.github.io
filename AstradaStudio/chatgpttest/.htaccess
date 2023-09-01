@@ -1,0 +1,3 @@
+<Directory "index.html">
+    AllowOverride All
+</Directory>
