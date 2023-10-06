@@ -306,10 +306,34 @@
 
 
 
+.under-construction {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            z-index: 9999;
+        }
 
+        .under-construction-text {
+            color: #fff;
+            font-size: 24px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
+    <div class="under-construction">
+        <div class="under-construction-text">
+            Niedługo powrócimy
+        </div>
+    </div>
+
     <div class="loading-screen">
         <div class="loading-icon"></div>
         <div class="loading-text">Loading...</div>
