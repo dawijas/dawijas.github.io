@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pobierz i podgląd pliku PDF</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('tło3.png');
+            background-repeat: no-repeat;
+            background-size: cover;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+
+        #pdf-container {
+            width: 100%;
+            max-width: 800px;
+            height: 600px;
+        }
+
+        a {
+            color: #fff;
+            background-color: #333;
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid #333;
+            border-radius: 4px;
+            transition: background-color 0.3s ease;
+            display: block;
+            text-align: center;
+            margin: 10px auto;
+            width: 200px;
+        }
+
+        a:hover {
+            background-color: #555;
+        }
+    </style>
+</head>
+<body>
+    <a href="Prezentacja (1).pdf" download="Prezentacja.pdf">Pobierz plik PDF</a>
+    <div id="pdf-container">
+        <canvas id="pdf-canvas"></canvas>
+    </div>
+    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
+    <script>
+        function renderPdf(url) {
+            const pdfContainer = document.getElementById("pdf-container");
+            const canvas = document.getElementById("pdf-canvas");
+
+            pdfjsLib.getDocument(url).promise.then(pdfDoc => {
+                return pdfDoc.getPage(1);
+            }).then(page => {
+                const viewport = page.getViewport({ scale: 1 });
+                canvas.height = viewport.height;
+                canvas.width = viewport.width;
+                const context = canvas.getContext("2d");
+                return page.render({ canvasContext: context, viewport });
+            }).catch(error => {
+                console.error("Błąd podczas renderowania PDF:", error);
+            });
+        }
+        renderPdf("Prezentacja (1).pdf");
+    </script>
+</body>
+</html>
