@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kod Morse'a z światłem</title>
+    <style>
+        .light {
+            width: 30px;
+            height: 30px;
+            background-color: black;
+            border: 1px solid white;
+            display: inline-block;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Kod Morse'a z światłem</h1>
+    <div>
+        <label for="text-input">Wprowadź tekst:</label>
+        <input type="text" id="text-input">
+        <button onclick="convertToMorse()">Konwertuj</button>
+    </div>
+    <div id="output"></div>
+
+    <script>
+        const morseCode = {
+            'A': '.-', 'B': '-...', 'C': '-.-.', 'D': '-..', 'E': '.', 'F': '..-.', 'G': '--.', 'H': '....', 'I': '..', 'J': '.---',
+            'K': '-.-', 'L': '.-..', 'M': '--', 'N': '-.', 'O': '---', 'P': '.--.', 'Q': '--.-', 'R': '.-.', 'S': '...', 'T': '-',
+            'U': '..-', 'V': '...-', 'W': '.--', 'X': '-..-', 'Y': '-.--', 'Z': '--..',
+            '1': '.----', '2': '..---', '3': '...--', '4': '....-', '5': '.....', '6': '-....', '7': '--...', '8': '---..', '9': '----.', '0': '-----',
+            ' ': ' '
+        };
+
+        function convertToMorse() {
+            const textInput = document.getElementById("text-input").value.toUpperCase();
+            const outputDiv = document.getElementById("output");
+            outputDiv.innerHTML = "";
+
+            for (let i = 0; i < textInput.length; i++) {
+                const char = textInput[i];
+                if (morseCode[char]) {
+                    const morse = morseCode[char];
+                    for (let j = 0; j < morse.length; j++) {
+                        const signal = morse[j];
+                        const lightDiv = document.createElement("div");
+                        lightDiv.className = "light";
+                        if (signal === ".") {
+                            lightDiv.style.backgroundColor = "red";
+                        } else if (signal === "-") {
+                            lightDiv.style.backgroundColor = "blue";
+                        }
+                        outputDiv.appendChild(lightDiv);
+                    }
+                    outputDiv.appendChild(document.createTextNode(" "));
+                }
+            }
+        }
+    </script>
+</body>
+</html>
