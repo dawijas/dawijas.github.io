@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-image: url('tło3.png');
+            background-color: #080808;
             background-repeat: no-repeat;
             background-size: cover;
             display: flex;
@@ -25,17 +25,13 @@
         }
 
         a {
-            color: #fff;
-            background-color: #333;
-            text-decoration: none;
-            padding: 10px 20px;
-            border: 1px solid #333;
-            border-radius: 4px;
-            transition: background-color 0.3s ease;
-            display: block;
-            text-align: center;
-            margin: 10px auto;
-            width: 200px;
+            color: #c9c9c9;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px 20px;
+    border: 1px solid #333;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
         }
 
         a:hover {
@@ -45,28 +41,6 @@
 </head>
 <body>
     <a href="Prezentacja (1).pdf" download="Prezentacja.pdf">Pobierz plik PDF</a>
-    <div id="pdf-container">
-        <canvas id="pdf-canvas"></canvas>
-    </div>
-    <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
-    <script>
-        function renderPdf(url) {
-            const pdfContainer = document.getElementById("pdf-container");
-            const canvas = document.getElementById("pdf-canvas");
-
-            pdfjsLib.getDocument(url).promise.then(pdfDoc => {
-                return pdfDoc.getPage(1);
-            }).then(page => {
-                const viewport = page.getViewport({ scale: 1 });
-                canvas.height = viewport.height;
-                canvas.width = viewport.width;
-                const context = canvas.getContext("2d");
-                return page.render({ canvasContext: context, viewport });
-            }).catch(error => {
-                console.error("Błąd podczas renderowania PDF:", error);
-            });
-        }
-        renderPdf("Prezentacja (1).pdf");
-    </script>
+ 
 </body>
 </html>
