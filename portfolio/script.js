@@ -1,8 +1,6 @@
-
 fetch('config.json')
     .then(response => response.json())
     .then(data => {
-
         const portfolioSection = document.getElementById('portfolio');
         data.portfolio.forEach(projekt => {
             const projectDiv = document.createElement('div');
@@ -16,7 +14,6 @@ fetch('config.json')
             portfolioSection.appendChild(projectDiv);
         });
 
-    
         const ratingsSection = document.getElementById('ratings');
         data.oceny.forEach(ocena => {
             const ratingDiv = document.createElement('div');
@@ -30,7 +27,6 @@ fetch('config.json')
             ratingsSection.appendChild(ratingDiv);
         });
 
-        
         const skillsSection = document.getElementById('skills');
         data.umiejetnosci.forEach((umiejetnosc, index) => {
             const skillDiv = document.createElement('div');
@@ -42,10 +38,19 @@ fetch('config.json')
                 </div>
             `;
             skillsSection.appendChild(skillDiv);
+
+            // Dodanie obsługi zdarzeń dla gwiazdek
+            skillDiv.querySelectorAll('.star-rating label').forEach(label => {
+                label.addEventListener('mouseenter', function () {
+                    this.classList.add('rotate-star');
+                });
+
+                label.addEventListener('mouseleave', function () {
+                    this.classList.remove('rotate-star');
+                });
+            });
         });
 
-
-       
         const searchContainer = document.getElementById('search-container');
         searchContainer.innerHTML = `
             <input type="text" id="tagSearch" class="search-input" placeholder="Wyszukaj po tagu...">
@@ -62,35 +67,28 @@ fetch('config.json')
     })
     .catch(error => console.error('Błąd ładowania danych:', error));
 
+function generateStarRating(liczbaGwiazdek, id) {
+    const maxStars = 5;
+    let starsHTML = '';
 
-    function generateStarRating(liczbaGwiazdek, id) {
-        const maxStars = 5;
-        let starsHTML = '';
-    
-        for (let i = 1; i <= maxStars; i++) {
-            const checked = i <= liczbaGwiazdek ? 'checked' : '';
-            starsHTML += `<input type="radio" name="rating_${id}" value="${i}" ${checked} disabled><label></label>`;
-        }
-    
-        return starsHTML;
+    for (let i = 1; i <= maxStars; i++) {
+        const checked = i <= liczbaGwiazdek ? 'checked' : '';
+        starsHTML += `<input type="radio" name="rating_${id}" value="${i}" ${checked} disabled><label></label>`;
     }
 
-
-
-
+    return starsHTML;
+}
 
 function searchByTag() {
     const tagSearchInput = document.getElementById('tagSearch');
     const searchValue = tagSearchInput.value.toLowerCase();
 
-
     document.querySelectorAll('.skill-item, .rating-item').forEach(item => {
         item.style.display = 'none';
     });
 
-
     document.querySelectorAll('.skill-item, .rating-item').forEach(item => {
-        const tags = item.querySelector('h3').innerText.toLowerCase(); 
+        const tags = item.querySelector('h3').innerText.toLowerCase();
         if (tags.includes(searchValue)) {
             item.style.display = 'block';
         }
