@@ -1,0 +1,77 @@
+{
+    "konfiguracja": {
+        "nazwyPortfolio": {
+            "tagi": "Tagi"
+        },
+        "gwiazdkiUmiejetnosci": [
+            {
+                "nazwa": "Web Design",
+                "liczbaGwiazdek": 3
+            },
+            {
+                "nazwa": "Interfejsy Użytkownika (UI)",
+                "liczbaGwiazdek": 4
+            },
+            {
+                "nazwa": "Social Media Marketing",
+                "liczbaGwiazdek": 4
+            }
+        ]
+    },
+    "portfolio": [
+        {
+            "nazwa": "Bóg Honor Ojczyzna",
+            "opis": "Grafika prezentująca wartości Patrotyczne",
+            "zdjecie": "img/Patriota.png",
+            "tagi": ["Grafika", "Patriotyzm"]
+        },
+        {
+            "nazwa": "Projekt",
+            "opis": "",
+            "zdjecie": "img/PerłaŻabka.png",
+            "tagi": ["Grafika", "InfoGrafika", "Reklama"]
+        },
+        {
+            "nazwa": "Projekt",
+            "opis": "",
+            "zdjecie": "img/zabkaapk.png",
+            "tagi": ["Grafika", "InfoGrafika", "Reklama"]
+        },
+        {
+            "nazwa": "Projekt",
+            "opis": "Infografika promująca fikcyjną akcje 'dbajmy o las'",
+            "zdjecie": "img/Ratujemy lasy.png",
+            "tagi": ["Grafika", "InfoGrafika"]
+        },
+        {
+            "nazwa": "Projekt",
+            "opis": "",
+            "zdjecie": "img/BanerPerła.png",
+            "tagi": ["Grafika", "Reklama"]
+        }
+    ],
+    "oceny": [
+       
+      
+    ],
+    "umiejetnosci": [
+        {
+            "nazwa": "Web Design",
+            "ocena": 5
+        },
+        {
+            "nazwa": "Interfejsy Użytkownika (UI)",
+            "ocena": 4
+        },
+        {
+            "nazwa": "Social Media Marketing",
+            "ocena": 3
+        }
+    ],
+    
+    "kontakt": {
+        "email": "vertexy10@gmail.com",
+        "telefon": "Brak",
+        "adres": "Brak"
+    }
+}
