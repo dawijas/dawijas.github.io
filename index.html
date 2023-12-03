@@ -1,524 +1,124 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Strona główna</title>
-    <script src="https://cdn.gravitec.net/storage/811df19c325d93f54e59d82e3caf071e/client.js" async></script>
-<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9572042701200394"
-     crossorigin="anonymous"></script>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-image: url('tło3.png');
-            background-repeat: no-repeat;
-            background-size: cover;
-        }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dawijas</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #f0f0f0;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
 
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background-color: rgba(241, 241, 241, 0); 
-            padding: 10px;
-        }
+    .profile-card {
+      background-color: #fff;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      max-width: 800px;
+      width: 100%;
+    }
 
-        .navbar-left {
-            display: flex;
-            align-items: center;
-        }
+    .profile-header {
+      background-color: #000000;
+      color: #fff;
+      text-align: center;
+      padding: 20px;
+      position: relative;
+    }
 
-        .navbar-right {
-            display: flex;
-            align-items: center;
-        }
+    .profile-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      border: 3px solid #fff;
+      margin-top: -30px;
+      margin-bottom: 10px;
+      object-fit: cover;
+      position: relative;
+      z-index: 1;
+      top: 30px;
+      transition: transform 0.3s ease; /* Dodane: Animacja obracania */
+    }
 
-        .dropdown {
-            position: relative;
-            margin-right: 10px;
-        }
+    .profile-avatar:hover {
+      transform: rotate(360deg); /* Dodane: Obrót o 360 stopni po najechaniu myszką */
+    }
 
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: #f9f9f9;
-            min-width: 160px;
-            box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
-            z-index: 1;
-        }
+    .profile-info {
+      padding: 20px;
+    }
 
-        .dropdown-content a {
-            color: black;
-            padding: 12px 16px;
-            text-decoration: none;
-            display: block;
-            background-color: #f1f1f1;
-            transition: background-color 0.3s ease;
-        }
+    .profile-info h1 {
+      margin: 0;
+      font-size: 24px;
+    }
 
-        .dropdown-content a:hover {
-            background-color: #ddd;
-        }
+    .profile-info p {
+      margin: 10px 0;
+      font-size: 16px;
+      color: #666;
+    }
 
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
+    .profile-links {
+      background-color: #f9f9f9;
+      padding: 20px;
+    }
 
-        .navbar-btn {
-            background-color: transparent;
-            border: none;
-            color: white;
-            cursor: pointer;
-            padding: 14px 16px;
-            font-size: 16px;
-            font-family: inherit;
-            margin-right: 10px;
-        }
+    .profile-links h1 {
+      margin: 0;
+      font-size: 20px;
+      color: #333;
+    }
 
-        .navbar-btn:hover {
-            background-color: rgba(255, 255, 255, 0.1);
-        }
+    .profile-links a {
+      display: block;
+      margin: 10px 0;
+      text-decoration: none;
+      color: #4285f4;
+      font-weight: bold;
+    }
 
-        .loginbtn {
-            background-color: transparent;
-            border: none;
-            color: white;
-            cursor: pointer;
-            padding: 14px 16px;
-            font-size: 16px;
-            font-family: inherit;
-        }
+    .profile-links a:hover {
+      text-decoration: underline;
+    }
 
-        .loginbtn:hover {
-            background-color: rgba(255, 255, 255, 0.1); 
-        }
-
-        .container {
-            text-align: center;
-            margin-top: 10%;
-        }
-
-        h1 {
-            font-size: 80px;
-            color: #333;
-        }
-
-        p {
-            font-size: 24px;
-            color: #666;
-            margin-bottom: 20px;
-        }
-
-        a {
-            color: #333;
-            text-decoration: none;
-            font-size: 18px;
-            padding: 10px 20px;
-            border: 1px solid #333;
-            border-radius: 4px;
-            transition: background-color 0.3s ease;
-        }
-
-        a:hover {
-            background-color: #333;
-            color: #fff;
-        }
-
-        .content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            margin-top: 50px;
-        }
-
-        .content .item {
-            width: 250px;
-            height: 250px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            margin: 10px;
-            padding: 20px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .content .item:hover {
-            transform: scale(1.1);
-        }
-
-        .content .item img {
-            width: 100%;
-            height: auto;
-            border-radius: 10%;
-            cursor: pointer;
-        }
-
-        .content .item video {
-            width: 100%;
-            height: auto;
-            border-radius: 10px;
-            cursor: pointer;
-        }
-
-        .footer {
-            background-color: #f2f2f200;
-            padding: 50px;
-            text-align: center;
-        }
-
-        .footer a {
-            color: #cacaca;
-            text-decoration: none;
-            margin: 0 10px;
-        }
-
-        .video-info {
-            margin-top: 10px;
-            text-align: center;
-        }
-
-        .video-title {
-            font-size: 20px;
-            color: #ececec;
-        }
-
-        .video-description {
-            font-size: 16px;
-            color: #cccccc;
-        }
-
-        
-        .gallery {
-            overflow-x: hidden;
-    overflow-y: hidden;
-            white-space: nowrap;
-            margin-top: 50px;
-        }
-
-        .gallery-item {
-            display: inline-block;
-            width: 400px;
-            height: 200px;
-            background-color: rgba(0, 0, 0, 0.5);
-            border-radius: 10px;
-            margin: 10px;
-            padding: 20px;
-            box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-            text-align: center;
-            transition: transform 0.3s ease;
-        }
-
-        .gallery-item:hover {
-            transform: scale(1.1);
-        }
-
-        .gallery-item img {
-            width: 100%;
-            height: 200px;
-            border-radius: 10%;
-            cursor: pointer;
-        }
-        .calendar {
-            position: fixed;
-            top: 60px;
-            left: 10px;
-            width: 200px;
-            background-color: #ffffff00;
-            border-radius: 5px;
-            padding: 10px;
-        
-    
-        }
-
-        .calendar-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-    
-
-        .calendar-days {
-            display: flex;
-            flex-wrap: wrap;
-        }
-
-        .calendar-day {
-            width: 24px;
-            height: 24px;
-            border-radius: 50%;
-            background-color: #ccc;
-            margin: 2px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 12px;
-            color: #333;
-        }
-
-        .calendar-day.highlight {
-            background-color: #f00;
-            color: #fff;
-        }
-        .calendar-title {
-  text-align: center;
-  font-size: 16px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: white;
-}
-
-.loading-screen {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.8);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    z-index: 9999;
-}
-
-.loading-icon {
-    border: 6px solid #3498db;
-    border-top: 6px solid #f3f3f3;
-    border-radius: 50%;
-    width: 60px;
-    height: 60px;
-    animation: spin 1s linear infinite;
-}
-
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
-}
-
-
-.loading-text {
-    color: #f3f3f3;
-    margin-top: 20px; 
-    font-size: 18px; 
-}
-
-
-
-.under-construction {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.8);
-            z-index: 9999;
-        }
-
-        .under-construction-text {
-            color: #fff;
-            font-size: 24px;
-            text-align: center;
-            font-family: Arial, sans-serif;
-        }
-    </style>
+    .profile-footer {
+      background-color: #f0f0f0;
+      padding: 10px;
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
-    <div class="under-construction">
-        <div class="under-construction-text">
-           NIEDŁUGO WRACAMY
-        </div>
-    </div>
 
-    <div class="loading-screen">
-        <div class="loading-icon"></div>
-        <div class="loading-text">Loading...</div>
-    </div>
-    
-    <div class="navbar">
-        <div class="navbar-left">
-            <div class="dropdown">
-                <button class="dropbtn navbar-btn">Opcje</button>
-                <div class="dropdown-content">
-                    <a href="./html/todo.html" class="navbar-btn">Todo</a>
-                    <a href="./html/notatki.html" class="navbar-btn">Notatki</a>
-                    <a href="#" class="navbar-btn">Radio</a>
-                </div>
-            </div>
-            <a href="index.html" class="navbar-btn">Home</a>
-            <button class="navbar-btn">Polish Fields</button>
-        </div>
-        <div class="navbar-right">
-            <a href="login.html" class="loginbtn">Zaloguj</a>
-        </div>
-    </div>
-   
-    <div class="container">
-        <div class="content">
-            <div class="item">
-                <img class="zoomable" src="https://cdn.discordapp.com/attachments/1103060934156624002/1142951187314901123/image.png" alt="Photo">
-                <h2 class="video-title">Map Update</h2>
-                <p class="video-description">Polish Fields Team</p>
-            </div>
-            <div class="item">
-                <img class="zoomable" src="https://cdn.discordapp.com/attachments/1103060934156624002/1142951187650461866/image.png" alt="Photo">
-                <h2 class="video-title">Map Update</h2>
-                <p class="video-description">Polish Fields Team</p>
-            </div>
-            <div class="item">
-                <div class="video-wrapper">
-                    <video class="video" onclick="toggleFullscreen(this)" autoplay>
-                        <source src="https://cdd.glitch.me/e8cebedc-5e76-4b7b-a8bb-6de95c4e3118/Trailer-2.mp4?v=1685300814705" type="video/mp4">
-                    </video>
-                    <div class="video-info">
-                        <h2 class="video-title">Trailer - Polskie Łany</h2>
-                        <p class="video-description">Trailer został stworzony przez zespół AstradaStudio oraz ekipę Polskich Łan</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="gallery">
-        
-        <div class="gallery-item">
-            <img class="zoomable" src="https://cdn.discordapp.com/attachments/953661461039812609/1146537735256035389/image.png" alt="Photo">
-            
-        </div>
-        <div class="gallery-item">
-            <img class="zoomable" src="assets/PhotoB.png" alt="Photo">
-        </div>
-        <div class="gallery-item">
-            <img class="zoomable" src="https://cdn.discordapp.com/attachments/953659441553739867/1139558052727623800/image.png" alt="Photo">
-        </div>
-        <div class="gallery-item">
-            <img class="zoomable" src="assets/photod.png" alt="Photo">
-        </div>
-        <div class="gallery-item">
-            <img class="zoomable" src="https://cdn.discordapp.com/attachments/953661461039812609/1136325898291920987/image.png" alt="Photo">
-        </div>
-        <div class="gallery-item">
-            <img class="zoomable" src="https://cdn.discordapp.com/attachments/953661461039812609/1136672575091650640/image.png" alt="Photo">
-        </div>
-    </div>
-    
-    <div class="footer">
-        <p>Copiright AstradaStudio</p>
-        <a href="#">Tiktok</a>
-        <a href="#">Facebook</a>
-        <a href="https://discord.gg/wzQuWCXeCp">Discord</a>
-    </div>
+<div class="profile-card">
+  <div class="profile-header">
+    <img class="profile-avatar" src="https://cdn.discordapp.com/avatars/981290538005323797/6463221431f4f4448361324c34e7ef44.png?size=1024" alt="Avatar">
+    <h1>Dawijas</h1>
+    <p>Główny Właściciel</p>
+  </div>
+  <div class="profile-info">
+    <h1>O mnie</h1>
+    <p>Cześć jestem założycielem studia "AstradaStudio", w którym skupiamy się aktualnie na produkcjach gier oraz rozwijaniu naszej działalności</p>
+    <h1>Polskie Łany</h1>
+    <p>Twórca</p>
+  </div>
+  <div class="profile-links">
+    <h1>Linki</h1>
+    <a href="https://www.youtube.com/" target="_blank">YouTube</a>
+    <a href="https://www.example.com/" target="_blank">Portfolio</a>
+  </div>
+  <div class="profile-footer">
+    <p>© 2023 AstradaStudio</p>
+  </div>
+</div>
 
-    
-   
-
-
-    <script>
-
-
-
-window.addEventListener('load', () => {
-    const loadingScreen = document.querySelector('.loading-screen');
-    const content = document.querySelector('.container');
-
-   
-    setTimeout(() => {
-        loadingScreen.style.display = 'none';
-        content.style.display = 'block';
-    }, 3000);
-});
-
-
-
-  function redirectToLoginPage() {
-    window.location.href = "";
-  }
-
-        
-        function toggleFullscreen(element) {
-            if (!document.fullscreenElement) {
-                if (element.requestFullscreen) {
-                    element.requestFullscreen();
-                } else if (element.mozRequestFullScreen) { // Firefox
-                    element.mozRequestFullScreen();
-                } else if (element.webkitRequestFullscreen) { // Chrome, Safari and Opera
-                    element.webkitRequestFullscreen();
-                } else if (element.msRequestFullscreen) { // IE/Edge
-                    element.msRequestFullscreen();
-                }
-            } else {
-                if (document.exitFullscreen) {
-                    document.exitFullscreen();
-                } else if (document.mozCancelFullScreen) { // Firefox
-                    document.mozCancelFullScreen();
-                } else if (document.webkitExitFullscreen) { // Chrome, Safari and Opera
-                    document.webkitExitFullscreen();
-                } else if (document.msExitFullscreen) { // IE/Edge
-                    document.msExitFullscreen();
-                }
-            }
-        }
-
-        document.addEventListener('DOMContentLoaded', function() {
-            var dropdowns = document.getElementsByClassName('dropdown');
-
-            for (var i = 0; i < dropdowns.length; i++) {
-                dropdowns[i].addEventListener('click', function() {
-                    var dropdownContent = this.querySelector('.dropdown-content');
-
-                    if (dropdownContent.style.display === 'block') {
-                        dropdownContent.style.display = 'none';
-                    } else {
-                        dropdownContent.style.display = 'block';
-                    }
-                });
-            }
-        });
-
-        const gallery = document.querySelector('.gallery');
-        let isMouseDown = false;
-        let startX;
-        let scrollLeft;
-
-        gallery.addEventListener('mousedown', (e) => {
-            isMouseDown = true;
-            startX = e.pageX - gallery.offsetLeft;
-            scrollLeft = gallery.scrollLeft;
-        });
-
-        gallery.addEventListener('mouseleave', () => {
-            isMouseDown = false;
-        });
-
-        gallery.addEventListener('mouseup', () => {
-            isMouseDown = false;
-        });
-
-        gallery.addEventListener('mousemove', (e) => {
-            if (!isMouseDown) return;
-            e.preventDefault();
-            const x = e.pageX - gallery.offsetLeft;
-            const walk = x - startX;
-            gallery.scrollLeft = scrollLeft - walk;
-        });
-
-        const zoomableImages = document.querySelectorAll('.zoomable');
-        zoomableImages.forEach(function(image) {
-            image.addEventListener('click', function() {
-                toggleFullscreen(this);
-            });
-        });
-
-        const days = document.querySelectorAll('.calendar-day');
-        days.forEach(function(day) {
-            if (day.innerHTML === '25' || day.innerHTML === '26') {
-                day.classList.add('highlight');
-            }
-        });
-    </script>
 </body>
 </html>
