@@ -1,130 +1,132 @@
-fetch('config.json')
-    .then(response => response.json())
-    .then(data => {
-        const portfolioSection = document.getElementById('portfolio');
+document.addEventListener('DOMContentLoaded', function () {
+    fetch('config.json')
+        .then(response => response.json())
+        .then(data => {
+            const portfolioSection = document.getElementById('portfolio');
+            const ratingsSection = document.getElementById('ratings');
+            const skillsSection = document.getElementById('skills');
+            const searchContainer = document.getElementById('search-container');
+            const contactSection = document.getElementById('contact');
 
-        // Function to create a modal for displaying images
-        function createImageModal(imageSrc, imageAlt) {
-            const modal = document.createElement('div');
-            modal.classList.add('modal');
-            modal.innerHTML = `
-                <span class="close-modal" onclick="closeModal()">&times;</span>
-                <img src="${imageSrc}" alt="${imageAlt}">
-            `;
-            document.body.appendChild(modal);
+            // Function to create a modal for displaying images
+            function createImageModal(imageSrc, imageAlt) {
+                const modal = document.createElement('div');
+                modal.classList.add('modal');
+                modal.innerHTML = `
+                    <span class="close-modal" onclick="closeModal()">&times;</span>
+                    <img src="${imageSrc}" alt="${imageAlt}" class="modal-image">
+                `;
+                document.body.appendChild(modal);
 
-            // Close the modal when the user clicks outside the image
-            modal.addEventListener('click', function (e) {
-                if (e.target === modal) {
-                    closeModal();
-                }
-            });
-        }
-
-        // Function to close the modal
-        function closeModal() {
-            const modal = document.querySelector('.modal');
-            if (modal) {
-                modal.remove();
+                // Close the modal when the user clicks outside the image
+                modal.addEventListener('click', function (e) {
+                    if (e.target === modal) {
+                        closeModal();
+                    }
+                });
             }
-        }
 
-        // Function to open the modal with the clicked image
-        function openImageModal(imageSrc, imageAlt) {
-            createImageModal(imageSrc, imageAlt);
-        }
+            // Function to close the modal
+            function closeModal() {
+                const modal = document.querySelector('.modal');
+                if (modal) {
+                    modal.remove();
+                }
+            }
 
-        data.portfolio.forEach(projekt => {
-            const projectDiv = document.createElement('div');
-            projectDiv.classList.add('portfolio-item');
+            // Function to open the modal with the clicked image
+            function openImageModal(imageSrc, imageAlt) {
+                createImageModal(imageSrc, imageAlt);
+            }
 
-            // Add a click event listener to each image
-            projectDiv.innerHTML = `
-                <h3>${projekt.nazwa}</h3>
-                <p>${projekt.opis}</p>
-                <img src="${projekt.zdjecie}" alt="${projekt.nazwa}" onclick="openImageModal('${projekt.zdjecie}', '${projekt.nazwa}')">
-                <p>${data.konfiguracja.nazwyPortfolio.tagi}: ${projekt.tagi.join(', ')}</p>
-            `;
-            portfolioSection.appendChild(projectDiv);
-        });
+            data.portfolio.forEach(projekt => {
+                const projectDiv = document.createElement('div');
+                projectDiv.classList.add('portfolio-item');
 
-        const ratingsSection = document.getElementById('ratings');
-        data.oceny.forEach(ocena => {
-            const ratingDiv = document.createElement('div');
-            ratingDiv.classList.add('rating-item');
-            ratingDiv.innerHTML = `
-                <h3>${ocena.nazwa}</h3>
-                <div class="star-rating">
-                    ${generateStarRating(ocena.ocena)}
-                </div>
-            `;
-            ratingsSection.appendChild(ratingDiv);
-        });
+                // Add a click event listener to each image
+                projectDiv.innerHTML = `
+                    <h3>${projekt.nazwa}</h3>
+                    <p>${projekt.opis}</p>
+                    <img src="${projekt.zdjecie}" alt="${projekt.nazwa}" onclick="openImageModal('${projekt.zdjecie}', '${projekt.nazwa}')">
+                    <p>${data.konfiguracja.nazwyPortfolio.tagi}: ${projekt.tagi.join(', ')}</p>
+                `;
+                portfolioSection.appendChild(projectDiv);
+            });
 
-        const skillsSection = document.getElementById('skills');
-        data.umiejetnosci.forEach((umiejetnosc, index) => {
-            const skillDiv = document.createElement('div');
-            skillDiv.classList.add('skill-item');
-            skillDiv.innerHTML = `
-                <h3>${umiejetnosc.nazwa}</h3>
-                <div class="star-rating" id="rating_${index}">
-                    ${generateStarRating(umiejetnosc.ocena, index)}
-                </div>
-            `;
-            skillsSection.appendChild(skillDiv);
+            data.oceny.forEach(ocena => {
+                const ratingDiv = document.createElement('div');
+                ratingDiv.classList.add('rating-item');
+                ratingDiv.innerHTML = `
+                    <h3>${ocena.nazwa}</h3>
+                    <div class="star-rating">
+                        ${generateStarRating(ocena.ocena)}
+                    </div>
+                `;
+                ratingsSection.appendChild(ratingDiv);
+            });
 
-            // Dodanie obsługi zdarzeń dla gwiazdek
-            skillDiv.querySelectorAll('.star-rating label').forEach(label => {
-                label.addEventListener('mouseenter', function () {
-                    this.classList.add('rotate-star');
-                });
+            data.umiejetnosci.forEach((umiejetnosc, index) => {
+                const skillDiv = document.createElement('div');
+                skillDiv.classList.add('skill-item');
+                skillDiv.innerHTML = `
+                    <h3>${umiejetnosc.nazwa}</h3>
+                    <div class="star-rating" id="rating_${index}">
+                        ${generateStarRating(umiejetnosc.ocena, index)}
+                    </div>
+                `;
+                skillsSection.appendChild(skillDiv);
 
-                label.addEventListener('mouseleave', function () {
-                    this.classList.remove('rotate-star');
+                // Dodanie obsługi zdarzeń dla gwiazdek
+                skillDiv.querySelectorAll('.star-rating label').forEach(label => {
+                    label.addEventListener('mouseenter', function () {
+                        this.classList.add('rotate-star');
+                    });
+
+                    label.addEventListener('mouseleave', function () {
+                        this.classList.remove('rotate-star');
+                    });
                 });
             });
-        });
 
-        const searchContainer = document.getElementById('search-container');
-        searchContainer.innerHTML = `
-            <input type="text" id="tagSearch" class="search-input" placeholder="Wyszukaj po tagu...">
-            <button onclick="searchByTag()">Szukaj</button>
-        `;
+            searchContainer.innerHTML = `
+                <input type="text" id="tagSearch" class="search-input" placeholder="Wyszukaj po tagu...">
+                <button onclick="searchByTag()">Szukaj</button>
+            `;
 
-        const contactSection = document.getElementById('contact');
-        contactSection.innerHTML = `
-            <h2>Kontakt</h2>
-            <p>Email: ${data.kontakt.email}</p>
-            <p>Telefon: ${data.kontakt.telefon}</p>
-            <p>Adres: ${data.kontakt.adres}</p>
-        `;
-    })
-    .catch(error => console.error('Błąd ładowania danych:', error));
+            contactSection.innerHTML = `
+                <h2>Kontakt</h2>
+                <p>Email: ${data.kontakt.email}</p>
+                <p>Telefon: ${data.kontakt.telefon}</p>
+                <p>Adres: ${data.kontakt.adres}</p>
+            `;
+        })
+        .catch(error => console.error('Błąd ładowania danych:', error));
 
-function generateStarRating(liczbaGwiazdek, id) {
-    const maxStars = 5;
-    let starsHTML = '';
+    function generateStarRating(liczbaGwiazdek, id) {
+        const maxStars = 5;
+        let starsHTML = '';
 
-    for (let i = 1; i <= maxStars; i++) {
-        const checked = i <= liczbaGwiazdek ? 'checked' : '';
-        starsHTML += `<input type="radio" name="rating_${id}" value="${i}" ${checked} disabled><label></label>`;
+        for (let i = 1; i <= maxStars; i++) {
+            const checked = i <= liczbaGwiazdek ? 'checked' : '';
+            starsHTML += `<input type="radio" name="rating_${id}" value="${i}" ${checked} disabled><label></label>`;
+        }
+
+        return starsHTML;
     }
 
-    return starsHTML;
-}
+    function searchByTag() {
+        const tagSearchInput = document.getElementById('tagSearch');
+        const searchValue = tagSearchInput.value.toLowerCase();
 
-function searchByTag() {
-    const tagSearchInput = document.getElementById('tagSearch');
-    const searchValue = tagSearchInput.value.toLowerCase();
+        document.querySelectorAll('.skill-item, .rating-item').forEach(item => {
+            item.style.display = 'none';
+        });
 
-    document.querySelectorAll('.skill-item, .rating-item').forEach(item => {
-        item.style.display = 'none';
-    });
-
-    document.querySelectorAll('.skill-item, .rating-item').forEach(item => {
-        const tags = item.querySelector('h3').innerText.toLowerCase();
-        if (tags.includes(searchValue)) {
-            item.style.display = 'block';
-        }
-    });
-}
+        document.querySelectorAll('.skill-item, .rating-item').forEach(item => {
+            const tags = item.querySelector('h3').innerText.toLowerCase();
+            if (tags.includes(searchValue)) {
+                item.style.display = 'block';
+            }
+        });
+    }
+});
