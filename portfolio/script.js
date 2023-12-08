@@ -57,6 +57,7 @@ const portfolioImage = projectDiv.querySelector('.portfolio-image');
 portfolioImage.addEventListener('click', () => {
     openImageModal(projekt.zdjecie, projekt.nazwa);
 });
+                
 
 
             data.oceny.forEach(ocena => {
