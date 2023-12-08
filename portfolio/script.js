@@ -44,21 +44,14 @@ document.addEventListener('DOMContentLoaded', function () {
                 projectDiv.classList.add('portfolio-item');
 
                 // Add a click event listener to each image
-             // Add a click event listener to each image
-projectDiv.innerHTML = `
-    <h3>${projekt.nazwa}</h3>
-    <p>${projekt.opis}</p>
-    <img src="${projekt.zdjecie}" alt="${projekt.nazwa}" class="portfolio-image">
-    <p>${data.konfiguracja.nazwyPortfolio.tagi}: ${projekt.tagi.join(', ')}</p>
-`;
-
-// Add click event listener separately
-const portfolioImage = projectDiv.querySelector('.portfolio-image');
-portfolioImage.addEventListener('click', () => {
-    openImageModal(projekt.zdjecie, projekt.nazwa);
-});
-                
-
+                projectDiv.innerHTML = `
+                    <h3>${projekt.nazwa}</h3>
+                    <p>${projekt.opis}</p>
+                    <img src="${projekt.zdjecie}" alt="${projekt.nazwa}" onclick="openImageModal('${projekt.zdjecie}', '${projekt.nazwa}')">
+                    <p>${data.konfiguracja.nazwyPortfolio.tagi}: ${projekt.tagi.join(', ')}</p>
+                `;
+                portfolioSection.appendChild(projectDiv);
+            });
 
             data.oceny.forEach(ocena => {
                 const ratingDiv = document.createElement('div');
