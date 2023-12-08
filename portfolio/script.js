@@ -2,13 +2,47 @@ fetch('config.json')
     .then(response => response.json())
     .then(data => {
         const portfolioSection = document.getElementById('portfolio');
+
+        // Function to create a modal for displaying images
+        function createImageModal(imageSrc, imageAlt) {
+            const modal = document.createElement('div');
+            modal.classList.add('modal');
+            modal.innerHTML = `
+                <span class="close-modal" onclick="closeModal()">&times;</span>
+                <img src="${imageSrc}" alt="${imageAlt}">
+            `;
+            document.body.appendChild(modal);
+
+            // Close the modal when the user clicks outside the image
+            modal.addEventListener('click', function (e) {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            const modal = document.querySelector('.modal');
+            if (modal) {
+                modal.remove();
+            }
+        }
+
+        // Function to open the modal with the clicked image
+        function openImageModal(imageSrc, imageAlt) {
+            createImageModal(imageSrc, imageAlt);
+        }
+
         data.portfolio.forEach(projekt => {
             const projectDiv = document.createElement('div');
             projectDiv.classList.add('portfolio-item');
+
+            // Add a click event listener to each image
             projectDiv.innerHTML = `
                 <h3>${projekt.nazwa}</h3>
                 <p>${projekt.opis}</p>
-                <img src="${projekt.zdjecie}" alt="${projekt.nazwa}">
+                <img src="${projekt.zdjecie}" alt="${projekt.nazwa}" onclick="openImageModal('${projekt.zdjecie}', '${projekt.nazwa}')">
                 <p>${data.konfiguracja.nazwyPortfolio.tagi}: ${projekt.tagi.join(', ')}</p>
             `;
             portfolioSection.appendChild(projectDiv);
