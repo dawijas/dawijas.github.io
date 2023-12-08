@@ -31,6 +31,12 @@
             "zdjecie": "img/PerłaŻabka.png",
             "tagi": ["Grafika", "InfoGrafika", "Reklama"]
         },
+           {
+            "nazwa": "Projekt",
+            "opis": "Grafika prezentująca projekt promocji żabki",
+            "zdjecie": "img/promocjażabka.png",
+            "tagi": ["Grafika", "InfoGrafika"]
+        },
         {
             "nazwa": "Projekt",
             "opis": "",
